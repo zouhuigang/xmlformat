@@ -1,4 +1,4 @@
-package xmlfmt
+package xmlformat
 
 import (
 	"regexp"
