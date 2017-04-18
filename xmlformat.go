@@ -19,6 +19,13 @@ func FormatXML(xmls, prefix, indent string) string {
 	return (prefix + reg.ReplaceAllStringFunc(src, rf))
 }
 
+//压缩xml
+func CompressXml(xmls string) string {
+	re := regexp.MustCompile(`( <=>)\\s+( =<)`)
+	xmls := re.ReplaceAllString(xmls, "")
+	return xmls
+}
+
 // replaceTag returns a closure function to do 's/(?<=>)\s+(?=<)//g; s(<(/?)([^>]+?)(/?)>)($indent+=$3?0:$1?-1:1;"<$1$2$3>"."\n".("  "x$indent))ge' as in Perl
 // and deal with comments as well
 func replaceTag(prefix, indent string) func(string) string {
