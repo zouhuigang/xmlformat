@@ -20,9 +20,22 @@ func FormatXML(xmls, prefix, indent string) string {
 }
 
 //压缩xml
+/*
+js压缩方法：
+var str = this.preserveComments ? text
+					: text.replace(/\<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)\>/g,"")
+					.replace(/[ \r\n\t]{1,}xmlns/g, ' xmlns');
+			return  str.replace(/>\s{0,}</g,"><");
+*/
 func CompressXml(xmls string) string {
-	re := regexp.MustCompile(`( <=>)\\s+( =<)`)
-	xmls := re.ReplaceAllString(xmls, "")
+	//re := regexp.MustCompile(`( <=>)\\s+( =<)`)
+	//xmls = re.ReplaceAllString(xmls, "")
+	//xmls = strings.Replace(xmls, "\n", "", -1) //去除换行符
+	var re = regexp.MustCompile(`\<![ \r\n\t]*(--([^\-]|[\r\n]|-[^\-])*--[ \r\n\t]*)\>`)
+	xmls = re.ReplaceAllString(xmls, "")
+
+	re = regexp.MustCompile(`>\s{0,}<`)
+	xmls = re.ReplaceAllString(xmls, "><")
 	return xmls
 }
 
